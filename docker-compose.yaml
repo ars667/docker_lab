@@ -48,9 +48,11 @@ services:
       postgres:
         condition: service_healthy
   app:
+    env_file:
+      - ./env/app.env
     container_name: app
     build:
-        context: .
+      context: .
     restart: unless-stopped
     ports:
       - ${APP_PORT}:${APP_PORT}
@@ -64,6 +66,7 @@ services:
 volumes:
   postgres:
     driver: local
+       - ./swagger:/swagger
 
 networks:
   persistent_bridge_network:
